@@ -17,24 +17,15 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -52,12 +43,41 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAUj83X8-ZOtxYB5QCCgZyrsr-u059w8aM',
+    appId: '1:771008721734:web:0f830d9815b7c20f6b2b47',
+    messagingSenderId: '771008721734',
+    projectId: 'petsnapmx',
+    authDomain: 'petsnapmx.firebaseapp.com',
+    storageBucket: 'petsnapmx.appspot.com',
+    measurementId: 'G-HGP22Z8ZKS',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDPqwU55wTs3QNV9cB0deVSojV-DCxx4-E',
-    appId: '1:664486182860:android:e2174831999eb952d0e769',
-    messagingSenderId: '664486182860',
-    projectId: 'database-test-35822',
-    databaseURL: 'https://database-test-35822-default-rtdb.firebaseio.com',
-    storageBucket: 'database-test-35822.appspot.com',
+    apiKey: 'AIzaSyDNb7iqjdTxRYWSH9PsjUp8u1DJZa96i1o',
+    appId: '1:771008721734:android:fed7aedc6c66dd396b2b47',
+    messagingSenderId: '771008721734',
+    projectId: 'petsnapmx',
+    storageBucket: 'petsnapmx.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCVIpUnOTC3yRfe2XWR0RuBCvcvZQ9kaUU',
+    appId: '1:771008721734:ios:33e44971dfab5cd86b2b47',
+    messagingSenderId: '771008721734',
+    projectId: 'petsnapmx',
+    storageBucket: 'petsnapmx.appspot.com',
+    iosClientId: '771008721734-oe7du63vrup0gkoderj6m2bga5rokvoa.apps.googleusercontent.com',
+    iosBundleId: 'com.example.gtkFlutter',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCVIpUnOTC3yRfe2XWR0RuBCvcvZQ9kaUU',
+    appId: '1:771008721734:ios:33e44971dfab5cd86b2b47',
+    messagingSenderId: '771008721734',
+    projectId: 'petsnapmx',
+    storageBucket: 'petsnapmx.appspot.com',
+    iosClientId: '771008721734-oe7du63vrup0gkoderj6m2bga5rokvoa.apps.googleusercontent.com',
+    iosBundleId: 'com.example.gtkFlutter',
   );
 }

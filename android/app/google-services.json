@@ -1,41 +1,40 @@
 {
   "project_info": {
-    "project_number": "664486182860",
-    "firebase_url": "https://database-test-35822-default-rtdb.firebaseio.com",
-    "project_id": "database-test-35822",
-    "storage_bucket": "database-test-35822.appspot.com"
+    "project_number": "771008721734",
+    "project_id": "petsnapmx",
+    "storage_bucket": "petsnapmx.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:664486182860:android:e2174831999eb952d0e769",
+        "mobilesdk_app_id": "1:771008721734:android:fed7aedc6c66dd396b2b47",
         "android_client_info": {
           "package_name": "com.example.gtk_flutter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "664486182860-5j4o8ok6ejlp40lnqsmej738heqfp93l.apps.googleusercontent.com",
+          "client_id": "771008721734-81dh9ngj0kkst1l6u7plgebqu6rplocn.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDPqwU55wTs3QNV9cB0deVSojV-DCxx4-E"
+          "current_key": "AIzaSyDNb7iqjdTxRYWSH9PsjUp8u1DJZa96i1o"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "664486182860-5j4o8ok6ejlp40lnqsmej738heqfp93l.apps.googleusercontent.com",
+              "client_id": "771008721734-81dh9ngj0kkst1l6u7plgebqu6rplocn.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "664486182860-akmal2bt4hs4l55abd2eodc9acs8rts2.apps.googleusercontent.com",
+              "client_id": "771008721734-oe7du63vrup0gkoderj6m2bga5rokvoa.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.brenhr.FirestoreSubcollection"
+                "bundle_id": "com.example.gtkFlutter"
               }
             }
           ]
