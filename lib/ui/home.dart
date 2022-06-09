@@ -1,5 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gtk_flutter/main.dart';
+import 'package:provider/provider.dart';
 
 // class HomeScreen extends StatelessWidget {
 //   static const route = '/home';
@@ -35,14 +37,17 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         centerTitle: true,
         title: Text("PetSnap"),
       ),
-      // body: Text("Hello World!"),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          Text("EntriesPage"),
-          Text("StatisticsPage"),
-        ],
+      body: Consumer<ApplicationState>(
+        builder: (context, appState, _) => CameraPreview(appState.cameraController)
       ),
+      // body: Text("Hello World!"),
+      // body: TabBarView(
+      //   controller: _tabController,
+      //   children: [
+      //     Text("EntriesPage"),
+      //     Text("StatisticsPage"),
+      //   ],
+      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         tooltip: 'Snap',
