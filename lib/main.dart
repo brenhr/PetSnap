@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -11,21 +10,34 @@ import 'src/authentication.dart';
 import 'src/widgets.dart';
 import 'src/home.dart';
 
-void main() {
+import 'src/loginPageWidget.dart';
+// import 'src/homePageWidget.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
-    const App()
+    ChangeNotifierProvider(
+      create: (context) => ApplicationState(),
+      builder: (context, _) => PetSnap(),
+    ),
   );
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
-
+class PetSnap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PetSnap',
       theme: ThemeData(colorScheme: ColorScheme.light()),
-      home: LoginPage(),
+      // home: LoginPage(),
+    initialRoute: '/login',
+    routes: {
+    '/login': (context) => LoginPage(),
+    '/home': (context) => HomePage(),
+    }
     );
   }
 }
@@ -33,7 +45,7 @@ class App extends StatelessWidget {
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
-  bool _obscureText = true;
+  final bool _obscureText = true;
   bool _passwordVisible = false;
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -215,5 +227,18 @@ class LoginPage extends StatelessWidget {
 
   void signOut() {
     FirebaseAuth.instance.signOut();
+  }
+}
+
+class ApplicationState extends ChangeNotifier {
+  ApplicationState() {
+    init();
+  }
+
+  Future<void> init() async {
+    print("Init app PetSnap...");
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 }
