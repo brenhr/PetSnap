@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   initState() {
     super.initState();
     _scaffoldKey = GlobalKey<ScaffoldState>();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -37,18 +37,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         centerTitle: true,
         title: Text("PetSnap"),
       ),
-      body: Consumer<ApplicationState>(
-        builder: (context, appState, _) => CameraPreview(appState.cameraController)
-      ),
-      // body: Text("Hello World!"),
-      // body: TabBarView(
-      //   controller: _tabController,
-      //   children: [
-      //     Text("EntriesPage"),
-      //     Text("StatisticsPage"),
-      //   ],
+      // body: Consumer<ApplicationState>(
+      //   builder: (context, appState, _) => CameraPreview(appState.cameraController)
       // ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          Consumer<ApplicationState>(
+            builder: (context, appState, _) => CameraPreview(appState.cameraController)
+          ),
+          Text("EntriesPage"),
+          Text("StatisticsPage"),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         tooltip: 'Snap',
         isExtended: true,
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         foregroundColor: Colors.black,
         child: Icon(Icons.photo_camera),
         //TODO onPressed functionality
-        onPressed: () {},
+        onPressed: () { Provider.of<ApplicationState>(context, listen: false).takePicture(); }
       ),
       bottomNavigationBar: BottomAppBar(
         notchMargin: 5.0,
@@ -66,8 +68,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           color: Theme.of(context).scaffoldBackgroundColor,
           child: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.receipt)),
-              Tab(icon: Icon(Icons.insert_chart)),
+              Tab(icon: Icon(Icons.search_rounded)),
+              Tab(icon: Icon(Icons.chat_rounded)),
+              Tab(icon: Icon(Icons.image_rounded)),
             ],
             // TODO: Tabs controller
             controller: _tabController,

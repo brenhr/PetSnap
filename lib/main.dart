@@ -44,6 +44,12 @@ class ApplicationState implements ChangeNotifier {
     _cameraController = cameraController;
   }
 
+  takePicture() {
+    var picture = _cameraController.takePicture();
+    print(picture);
+    // return _cameraController.takePicture();
+  }
+
   ApplicationState() {
     init();
   }
@@ -52,8 +58,8 @@ class ApplicationState implements ChangeNotifier {
     cameraController = CameraController(
         _cameras[0],
       ResolutionPreset.medium,
-      imageFormatGroup: ImageFormatGroup.jpeg,
-      // imageFormatGroup: ImageFormatGroup.yuv420
+      // imageFormatGroup: ImageFormatGroup.jpeg,
+      imageFormatGroup: ImageFormatGroup.yuv420
     );
     cameraController
         .initialize()
