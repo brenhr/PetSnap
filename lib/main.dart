@@ -12,6 +12,7 @@ import 'src/home.dart';
 
 import 'src/loginPageWidget.dart';
 // import 'src/homePageWidget.dart';
+import 'src/cameraWidget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,11 +34,12 @@ class PetSnap extends StatelessWidget {
       title: 'PetSnap',
       theme: ThemeData(colorScheme: ColorScheme.light()),
       // home: LoginPage(),
-    initialRoute: '/login',
-    routes: {
-    '/login': (context) => LoginPage(),
-    '/home': (context) => HomePage(),
-    }
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+        '/camera': (context) => CameraPage(),
+      }
     );
   }
 }
@@ -186,10 +188,7 @@ class LoginPage extends StatelessWidget {
       );
       var uid = credential.user?.uid;
       print("Signed in with id: $uid");
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      Navigator.pushNamed(context, '/home');
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -231,6 +230,8 @@ class LoginPage extends StatelessWidget {
 }
 
 class ApplicationState extends ChangeNotifier {
+
+
   ApplicationState() {
     init();
   }

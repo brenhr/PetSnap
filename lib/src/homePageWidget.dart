@@ -44,7 +44,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           child: Icon(Icons.photo_camera),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, "/camera");
+          },
           //TODO onPressed functionality
           // onPressed: () { Provider.of<ApplicationState>(context, listen: false).takePicture(); }
       ),
