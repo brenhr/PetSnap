@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gtk_flutter/src/petSwipeCardsWidget.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,18 +25,13 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         centerTitle: true,
         title: Text("PetSnap"),
       ),
-      // body: Consumer<ApplicationState>(
-      //   builder: (context, appState, _) => CameraPreview(appState.cameraController)
-      // ),
       body: TabBarView(
         controller: _tabController,
         children: [
-          // Consumer<ApplicationState>(
-          //     builder: (context, appState, _) => CameraPreview(appState.cameraController)
-          // ),
           Text("FPp"),
           Text("EntriesPage"),
-          Text("StatisticsPage"),
+          // Text("StatisticsPage"),
+          PetSwipeCards()
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -47,8 +44,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           onPressed: () {
             Navigator.pushNamed(context, "/camera");
           },
-          //TODO onPressed functionality
-          // onPressed: () { Provider.of<ApplicationState>(context, listen: false).takePicture(); }
       ),
       bottomNavigationBar: BottomAppBar(
         notchMargin: 5.0,
