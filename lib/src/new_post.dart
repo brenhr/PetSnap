@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../firebase_options.dart';
+import 'home.dart';
 
 
 class PostPage extends StatelessWidget {
@@ -30,7 +31,7 @@ class NewPost extends StatefulWidget {
 class _NewPostState extends State<NewPost> {
 
   String? selectedValue = "Lost";
-  DateTime _date = DateTime(2022, 07, 09);
+  DateTime _date = DateTime(2022, 10, 06);
   DateFormat dateFormat = DateFormat("MM-dd-yyyy");
   FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -262,7 +263,13 @@ class _NewPostState extends State<NewPost> {
           .collection('Found')
           .add(pet).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
       }
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+
     } else {
       print("Error: User is not signed in");
     }

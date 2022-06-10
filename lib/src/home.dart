@@ -107,10 +107,13 @@ class _HomeState extends State<Posts> with SingleTickerProviderStateMixin {
             onPressed: () {
               print(_tabcontroller.index);
               if (_tabcontroller.index == 0) {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => NewPost()),
+                  MaterialPageRoute(
+                    builder: (context) => PostPage(),
+                  ),
                 );
+
               }
             },
             child: Icon(Icons.add),
