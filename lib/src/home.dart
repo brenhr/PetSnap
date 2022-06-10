@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gtk_flutter/src/petSwipeCardsWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../firebase_options.dart';
@@ -26,16 +27,18 @@ class Posts extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Posts> {
+class _HomeState extends State<Posts> with SingleTickerProviderStateMixin {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   List<Widget> _cardLost = [];
   List<Widget> _cardFound = [];
+  late TabController _tabcontroller;
 
   @override
   void initState() {
     super.initState();
+    _tabcontroller =  TabController(length: 2, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getLost();
       getFound();
@@ -43,8 +46,13 @@ class _HomeState extends State<Posts> {
   }
 
   @override
+  void dispose() {
+    _tabcontroller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    
 
     var sizeLost = _cardLost.length;
     var sizeFound = _cardFound.length;
@@ -60,6 +68,7 @@ class _HomeState extends State<Posts> {
             automaticallyImplyLeading: false,
             backgroundColor: Colors.lightBlue[900],
             bottom: TabBar(
+              controller: _tabcontroller,
               indicatorColor: Colors.white,
               tabs: [
                 Tab(text: 'Lost', icon: Icon(Icons.crisis_alert)),
@@ -68,6 +77,7 @@ class _HomeState extends State<Posts> {
             ),
           ),
           body: TabBarView(
+            controller: _tabcontroller,
             children: [
               SingleChildScrollView(
                 child: ListView.builder(
@@ -78,15 +88,16 @@ class _HomeState extends State<Posts> {
                   },
                 ),
               ),
-              SingleChildScrollView(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _cardFound.length,
-                  itemBuilder: (context, index) {
-                    return _cardFound[index];
-                  },
-                )
-              ),
+              PetSwipeCards()
+              // SingleChildScrollView(
+              //   child: ListView.builder(
+              //     shrinkWrap: true,
+              //     itemCount: _cardFound.length,
+              //     itemBuilder: (context, index) {
+              //       return _cardFound[index];
+              //     },
+              //   )
+              // ),
             ],
 
           ),
@@ -94,10 +105,13 @@ class _HomeState extends State<Posts> {
             backgroundColor: Colors.lightBlue[900],
             foregroundColor: Colors.white,
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NewPost()),
-              );
+              print(_tabcontroller.index);
+              if (_tabcontroller.index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NewPost()),
+                );
+              }
             },
             child: Icon(Icons.add),
           ),

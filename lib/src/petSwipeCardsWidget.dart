@@ -65,7 +65,8 @@ class _PetSwipeCardsState extends State<PetSwipeCards> {
           child: Column(
             children: [
               Container(
-                height: 550,
+                // height: 550,
+                height: 400,
                 child: SwipeCards(
                   matchEngine: _matchEngine,
                   itemBuilder: (BuildContext context, int index) {
@@ -78,8 +79,29 @@ class _PetSwipeCardsState extends State<PetSwipeCards> {
                   },
                   upSwipeAllowed: false,
                   fillSpace: true,
+
                 ),
-              )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        // _matchEngine.currentItem.nope();
+                      },
+                      child: Text("Nope")),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //       // _matchEngine.currentItem.superLike();
+                  //     },
+                  //     child: Text("Superlike")),
+                  ElevatedButton(
+                      onPressed: () {
+                        // _matchEngine.currentItem.like();
+                      },
+                      child: Text("Founded"))
+                ],
+              ),
             ],
           ),
         );
@@ -114,7 +136,7 @@ class PetSwipeContent extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          child: Text("Tomas"),
+          child: Text(""),
         );
       },
     );
