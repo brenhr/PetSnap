@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +9,11 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'src/authentication.dart';
 import 'src/widgets.dart';
+import 'src/home.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ApplicationState(),
-      builder: (context, _) => const App(),
-    ),
+    const App()
   );
 }
 
@@ -28,13 +25,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'PetSnap',
       theme: ThemeData(colorScheme: ColorScheme.light()),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class LoginPage extends StatelessWidget {
+  LoginPage({super.key});
 
   bool _obscureText = true;
   bool _passwordVisible = false;
@@ -126,7 +123,7 @@ class HomePage extends StatelessWidget {
                       primary: Colors.lightBlue[900],
                     ),
                     onPressed: () {
-                      signInWithEmailAndPassword(emailController.text, passController.text);
+                      signInWithEmailAndPassword(emailController.text, passController.text, context);
                     },
                     child: Text('Login')
                   )
@@ -152,9 +149,6 @@ class HomePage extends StatelessWidget {
   }
 
   Future <void> signInAnonymously() async {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
     try {
       print("Signing in...");
       final userCredential =
@@ -172,7 +166,7 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  Future <void> signInWithEmailAndPassword(String email, String password) async {
+  Future <void> signInWithEmailAndPassword(String email, String password, BuildContext context) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -180,6 +174,10 @@ class HomePage extends StatelessWidget {
       );
       var uid = credential.user?.uid;
       print("Signed in with id: $uid");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -217,18 +215,5 @@ class HomePage extends StatelessWidget {
 
   void signOut() {
     FirebaseAuth.instance.signOut();
-  }
-}
-
-class ApplicationState extends ChangeNotifier {
-  ApplicationState() {
-    init();
-  }
-
-  Future<void> init() async {
-    print("Init app PetSnap...");
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
   }
 }
