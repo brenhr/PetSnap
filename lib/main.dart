@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -6,16 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
-import 'src/authentication.dart';
-import 'src/widgets.dart';
 import 'src/home.dart';
 
-import 'src/loginPageWidget.dart';
-// import 'src/homePageWidget.dart';
 import 'src/cameraWidget.dart';
+import 'package:camera/camera.dart';
+
+late List<CameraDescription> _cameras;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    _cameras = await availableCameras();
+  } on CameraException catch (e) {
+    log(e.code);
+    log(e.description!);
+  }
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -230,6 +238,7 @@ class LoginPage extends StatelessWidget {
 }
 
 class ApplicationState extends ChangeNotifier {
+  late CameraController cameraController;
 
 
   ApplicationState() {
@@ -241,5 +250,25 @@ class ApplicationState extends ChangeNotifier {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    cameraController = CameraController(_cameras[0], ResolutionPreset.max, imageFormatGroup: ImageFormatGroup.yuv420);
+    cameraController.initialize().then((_) {
+      notifyListeners();
+    }).catchError((Object e) {
+      if (e is CameraException) {
+        switch (e.code) {
+          case 'CameraAccessDenied':
+            print('User denied camera access.');
+            break;
+          default:
+            print('Handle other errors.');
+            break;
+        }
+      }
+    });
+
+  }
+
+  cameraDispose() {
+    cameraController.dispose();
   }
 }

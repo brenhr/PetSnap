@@ -1,12 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:gtk_flutter/src/cameraWidget.dart';
 import 'package:gtk_flutter/src/petSwipeCardsWidget.dart';
-import 'package:provider/provider.dart';
 
 import '../firebase_options.dart';
 import 'new_post.dart';
@@ -89,15 +86,6 @@ class _HomeState extends State<Posts> with SingleTickerProviderStateMixin {
                 ),
               ),
               PetSwipeCards()
-              // SingleChildScrollView(
-              //   child: ListView.builder(
-              //     shrinkWrap: true,
-              //     itemCount: _cardFound.length,
-              //     itemBuilder: (context, index) {
-              //       return _cardFound[index];
-              //     },
-              //   )
-              // ),
             ],
 
           ),
@@ -111,6 +99,13 @@ class _HomeState extends State<Posts> with SingleTickerProviderStateMixin {
                   context,
                   MaterialPageRoute(builder: (context) => NewPost()),
                 );
+              }
+              if (_tabcontroller.index == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraPage()),
+                );
+                // Navigator.pushNamed(context, '/camera');
               }
             },
             child: Icon(Icons.add),

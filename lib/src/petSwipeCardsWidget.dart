@@ -23,13 +23,11 @@ class _PetSwipeCardsState extends State<PetSwipeCards> {
       FirebaseFirestore.instance.collectionGroup('found').snapshots();
   List<SwipeItem> _swipeItems = [];
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  List<Color> _colors = [
-    Colors.red,
-    Colors.blue,
-    Colors.green,
-    Colors.yellow,
-    Colors.orange
-  ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   createSwipeItems(List<QueryDocumentSnapshot<Object?>> querySnapshot) {
     return querySnapshot.map((doc) {
